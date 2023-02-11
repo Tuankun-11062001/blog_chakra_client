@@ -1,0 +1,52 @@
+.bookItem{
+    width: 15rem;
+    height: 20rem;
+    display: flex;
+    transition: 0.3s ease;
+}
+
+.bookItem:hover{
+    border:1px solid transparent !important;
+}
+
+.bookItem img{
+    width: 15rem;
+    height: 20rem;
+    object-fit: contain;
+    align-self: center;
+    opacity: 0.5;
+    transition: 0.3s ease;
+
+}
+
+
+.slick-center .bookItem{
+    opacity: 1;
+    width: 20rem;
+    height: 30rem;
+    background:lightgreen;
+}
+
+.slick-center .bookItem img{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.slick-prev {
+    left:0;
+    z-index: 2;
+}
+
+.slick-next{
+    right: 1rem;
+}
+
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 40px;
+    line-height: 1;
+    opacity: .75;
+    color: rgb(182, 182, 182);
+    -webkit-font-smoothing: antialiased;
+}

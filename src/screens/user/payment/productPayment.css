@@ -1,0 +1,7 @@
+.box{
+    bottom:-10rem;
+    transition:1s ease;
+}
+.slick-active .box{
+    bottom:2;
+}

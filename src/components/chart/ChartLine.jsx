@@ -1,0 +1,76 @@
+import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import faker from "faker";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export default function ChartLine() {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Your Blog",
+      },
+    },
+  };
+
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Blog",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Favourite",
+        data: labels.map(() =>
+          faker.datatype.number({ min: -1000, max: 1000 })
+        ),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+  return (
+    <Line
+      options={options}
+      data={data}
+      style={{ width: "100%", height: "100%", fontSize: "1.3rem" }}
+    />
+  );
+}
