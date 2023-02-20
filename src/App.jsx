@@ -4,40 +4,55 @@ import {
   createRoutesFromElements,
   Route,
   Outlet,
+  createHashRouter,
 } from "react-router-dom";
+import { lazy } from "react";
 
 // Layout
 import LayoutMain from "./components/user/LayoutMain";
 import LayoutCategories from "./components/user/LayoutCategories";
 import LayoutStore from "./components/user/LayoutStore";
+import LayoutBook from "./components/user/LayoutBook";
+import AdminLayout from "./components/admin/AdminLayout";
+import LayoutUser from "./components/user/LayoutUser";
+import { useClientStore } from "./store/client/hook";
 
 // screen
 
-import Home from "./screens/user/Home";
-import Store from "./screens/user/store/Store";
-import Categories from "./screens/user/category/Categories";
-import DetailCategory from "./screens/user/category/DetailCategory";
-import Read from "./screens/user/category/Read";
-import Cart from "./screens/user/cart/Cart";
-import DetailProduct from "./screens/user/store/DetailProduct";
-import Payment from "./screens/user/payment/Payment";
-import LayoutBook from "./components/user/LayoutBook";
-import Book from "./screens/user/book/Book";
-import BookDetail from "./screens/user/book/detail/BookDetail";
-import LayoutUser from "./components/user/LayoutUser";
-import Profile from "./screens/user/profile/Profile";
-import BlogManager from "./screens/user/BlogManager/BlogManager";
-import Favourite from "./screens/user/favourite/Favourite";
-import AdminLayout from "./components/admin/AdminLayout";
-import HomeA from "./screens/admin/HomeA";
-import BlogManagerA from "./screens/admin/blogA/BlogManagerA";
-import StoreManagerA from "./screens/admin/storeA/StoreManagerA";
-import BookManagerA from "./screens/admin/bookA/BookManagerA";
-import UserManagerA from "./screens/admin/userA/UserManagerA";
-import BookManagerADetail from "./screens/admin/bookA/BookManagerADetail";
-import StoreManagerAPreview from "./screens/admin/storeA/StoreManagerAPreview";
+const Home = lazy(() => import("./screens/user/Home"));
+const Store = lazy(() => import("./screens/user/store/Store"));
+const Categories = lazy(() => import("./screens/user/category/Categories"));
+const DetailCategory = lazy(() =>
+  import("./screens/user/category/DetailCategory")
+);
+const Read = lazy(() => import("./screens/user/category/Read"));
+const Cart = lazy(() => import("./screens/user/cart/Cart"));
+const DetailProduct = lazy(() => import("./screens/user/store/DetailProduct"));
+const Payment = lazy(() => import("./screens/user/payment/Payment"));
+const Book = lazy(() => import("./screens/user/book/Book"));
+const BookDetail = lazy(() => import("./screens/user/book/detail/BookDetail"));
+const Profile = lazy(() => import("./screens/user/profile/Profile"));
+const BlogManager = lazy(() =>
+  import("./screens/user/BlogManager/BlogManager")
+);
+const Favourite = lazy(() => import("./screens/user/favourite/Favourite"));
 
-const router = createBrowserRouter(
+// admin
+const HomeA = lazy(() => import("./screens/admin/HomeA"));
+const BlogManagerA = lazy(() => import("./screens/admin/blogA/BlogManagerA"));
+const StoreManagerA = lazy(() =>
+  import("./screens/admin/storeA/StoreManagerA")
+);
+const BookManagerA = lazy(() => import("./screens/admin/bookA/BookManagerA"));
+const UserManagerA = lazy(() => import("./screens/admin/userA/UserManagerA"));
+const BookManagerADetail = lazy(() =>
+  import("./screens/admin/bookA/BookManagerADetail")
+);
+const StoreManagerAPreview = lazy(() =>
+  import("./screens/admin/storeA/StoreManagerAPreview")
+);
+
+const routerUser = createHashRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<LayoutMain />}>
@@ -85,9 +100,14 @@ const router = createBrowserRouter(
           <Route path="favourite" element={<Favourite />} />
         </Route>
       </Route>
-
+    </>
+  )
+);
+const routerAdmin = createHashRouter(
+  createRoutesFromElements(
+    <>
       {/* Admin */}
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route path="/" element={<AdminLayout />}>
         <Route index element={<HomeA />} />
 
         {/* blog A */}
@@ -117,7 +137,18 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [stateClient, dispatchClient] = useClientStore();
+  const { user } = stateClient;
+  console.log(user);
+  return (
+    <>
+      {user.role === "admin" ? (
+        <RouterProvider router={routerAdmin} />
+      ) : (
+        <RouterProvider router={routerUser} />
+      )}
+    </>
+  );
 }
 
 export default App;

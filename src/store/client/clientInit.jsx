@@ -1,6 +1,6 @@
 export const clientInit = {
   user: {
-    name: "Tuan",
+    username: "",
     email: "",
     img: "",
     number: "",

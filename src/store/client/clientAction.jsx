@@ -4,9 +4,18 @@ import {
   CHECK_LOCALSTORAGE_CART,
   DELETE_ITEM_OF_CART,
   EDIT_DETAIL,
+  INIT_USER,
   UPDATE_ITEM_OF_CART,
 } from "./clientContains";
 
+// user
+const initUser = (payload) => {
+  return {
+    type: INIT_USER,
+    payload,
+  };
+};
+//  cart
 const checkLocalStorageCart = (payload) => {
   return {
     type: CHECK_LOCALSTORAGE_CART,
@@ -58,4 +67,5 @@ export {
   updateItemOfCart,
   deleteItemOfCart,
   checkLocalStorageCart,
+  initUser,
 };

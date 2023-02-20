@@ -9,10 +9,35 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { initUser } from "../../store/client/clientAction";
+import { useClientStore } from "../../store/client/hook";
+import Loading from "../common/Loading";
 
 export default function AdminLayout() {
+  const [stateClient, dispatchClient] = useClientStore();
+
+  // admin log out
+  const navigate = useNavigate();
+  function logOut() {
+    const userDefalt = {
+      username: "",
+      email: "",
+      img: "",
+      number: "",
+      address: "",
+      role: "",
+    };
+
+    dispatchClient(initUser(userDefalt));
+
+    // remove local storage
+
+    localStorage.removeItem("infoUser");
+
+    navigate("/");
+  }
   return (
     <>
       <Container
@@ -37,7 +62,7 @@ export default function AdminLayout() {
             </Box>
 
             <Flex gap="10" alignItems="center">
-              <NavLink className="navLink" to="/admin">
+              <NavLink className="navLink" to="/">
                 <Text fontSize="17px" fontWeight="semibold" color="gray">
                   Home
                 </Text>
@@ -79,13 +104,15 @@ export default function AdminLayout() {
                 <Link to="my-profile">
                   <MenuItem>Profile</MenuItem>
                 </Link>
-                <MenuItem>Quit</MenuItem>
+                <MenuItem onClick={logOut}>Quit</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
       </Container>
-      <Outlet />
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

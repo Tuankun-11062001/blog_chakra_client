@@ -1,3 +1,7 @@
+// user
+const INIT_USER = "init_user";
+
+// cart
 const ADD_TO_CART = "addToCart";
 const UPDATE_ITEM_OF_CART = "updateItemOfCart";
 const DELETE_ITEM_OF_CART = "deleteItemOfCart";
@@ -13,4 +17,5 @@ export {
   UPDATE_ITEM_OF_CART,
   DELETE_ITEM_OF_CART,
   CHECK_LOCALSTORAGE_CART,
+  INIT_USER,
 };

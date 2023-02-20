@@ -5,11 +5,21 @@ import {
   CHECK_LOCALSTORAGE_CART,
   DELETE_ITEM_OF_CART,
   EDIT_DETAIL,
+  INIT_USER,
   UPDATE_ITEM_OF_CART,
 } from "./clientContains";
 
 export const clientReducer = (state, action) => {
   switch (action.type) {
+    // user
+    case INIT_USER:
+      console.log("Init User", action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    // cart
     case CHECK_LOCALSTORAGE_CART:
       console.log("checking local storage", action.payload);
 

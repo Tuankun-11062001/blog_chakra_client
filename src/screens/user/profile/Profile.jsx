@@ -27,8 +27,13 @@ import { Link } from "react-router-dom";
 import CreateBlog from "../../../components/modal/createBlog/CreateBlog";
 import ModalEditProfile from "../../../components/modal/EditProfile/ModalEditProfile";
 import { BsHeartFill } from "react-icons/bs";
+import { useClientStore } from "../../../store/client/hook";
 
 export default function Profile() {
+  const [stateClient, dispatchClient] = useClientStore();
+  const { user } = stateClient;
+
+  console.log(user);
   const {
     onOpen: onEditProfile,
     isOpen: isEditProfile,
@@ -49,13 +54,7 @@ export default function Profile() {
       maxW="full"
     >
       <Box pos="relative">
-        <Image
-          src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=709&q=80"
-          all=""
-          w="full"
-          h="25rem"
-          objectFit="cover"
-        />
+        <Image src={user.bgUser} all="" w="full" h="25rem" objectFit="cover" />
         <Flex
           pos="absolute"
           left="5rem"
@@ -64,10 +63,10 @@ export default function Profile() {
           gap="2rem"
           right="5rem"
         >
-          <Avatar src="" alt="" size="2xl" />
+          <Avatar src={user.image} alt="" size="2xl" />
           <Box>
-            <Heading>Tuan Nguyen</Heading>
-            <Text>Hi. minh la Tuan</Text>
+            <Heading>{user.username}</Heading>
+            <Text>{user.bio}</Text>
           </Box>
           <Spacer />
           <Button
@@ -90,32 +89,32 @@ export default function Profile() {
             <Table size="sm">
               <Tbody>
                 <Tr>
-                  <Td>UserName</Td>
-                  <Td>Tuan Nguyen</Td>
+                  <Td w="10rem">UserName</Td>
+                  <Td>{user.username}</Td>
                 </Tr>
                 <Tr>
                   <Td>Email</Td>
-                  <Td>nhoxtuanhero1@gmail.com</Td>
+                  <Td>{user.email}</Td>
                 </Tr>
                 <Tr>
                   <Td>Phone</Td>
-                  <Td>0826901362</Td>
+                  <Td>{user?.phone}</Td>
                 </Tr>
                 <Tr>
                   <Td>Address</Td>
-                  <Td>03 nguyen truong to</Td>
+                  <Td>{user?.address}</Td>
                 </Tr>
                 <Tr>
                   <Td>City</Td>
-                  <Td>Bao Loc</Td>
+                  <Td>{user?.city}</Td>
                 </Tr>
                 <Tr>
                   <Td>Province</Td>
-                  <Td>Lam Dong</Td>
+                  <Td>{user?.province}</Td>
                 </Tr>
                 <Tr>
                   <Td>Bio</Td>
-                  <Td>Hi. minh la Tuan</Td>
+                  <Td>{user?.bio}</Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -127,10 +126,11 @@ export default function Profile() {
         <Box flex="1">
           <Heading>Your Blogs</Heading>
           <Tabs
-            variant="enclosed"
-            mt="2rem"
-            borderColor="green.500"
+            // variant="enclosed"
+            // mt="2rem"
+            // borderColor="green.500"
             colorScheme="green"
+            // bg="white"
           >
             <TabList>
               <Tab fontSize="1.2rem" fontWeight="medium" gap="0.5rem">
