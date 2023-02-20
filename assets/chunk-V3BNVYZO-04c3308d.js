@@ -1,0 +1,1 @@
+import{u as r}from"./chunk-Z3IFIKNA-d50cfd80.js";import{f as p,a as c,c as i}from"./index-67d0cd9a.js";var n=p((a,t)=>{const{placement:s="bottom",...o}=a,e=r();return c(i.caption,{...o,ref:t,__css:{...e.caption,captionSide:s}})});n.displayName="TableCaption";export{n as T};

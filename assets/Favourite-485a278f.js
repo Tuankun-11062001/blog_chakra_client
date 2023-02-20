@@ -1,0 +1,1 @@
+import{a as e,d as r,B as o}from"./index-67d0cd9a.js";import{H as a}from"./chunk-B2MGPQRJ-bc55f51f.js";function t(){return e(r,{pos:"absolute",top:"7rem",paddingInline:"5rem",paddingBlock:"2rem",maxW:"full",children:e(o,{children:e(a,{fontSize:"1.4rem",children:"Blog Favourite"})})})}export{t as default};
